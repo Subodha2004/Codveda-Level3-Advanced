@@ -125,3 +125,4 @@ function TaskForm({ onSubmit }) {
 }
 
 export default TaskForm;
+export const API_URL = 'http://localhost:5000/api/tasks';

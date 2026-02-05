@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 import TaskList from './components/TaskList';
-import TaskForm from './components/Taskform';
+import TaskForm, { API_URL } from './components/Taskform';
 import SearchBar from './components/SearchBar';
 import Statistics from './components/Statistics';
-
-const API_URL = 'http://localhost:5000/api/tasks';
 
 function App() {
   const [tasks, setTasks] = useState([]);
