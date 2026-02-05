@@ -1,32 +1,28 @@
-// Load environment variables from .env file
 require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
+
+const taskRoutes = require("./routes/taskRoutes");
 
 const app = express();
 
-// Middleware to parse JSON
+app.use(cors());
 app.use(express.json());
 
-// Debug: check if MONGO_URI is being read
-console.log("MONGO_URI:", process.env.MONGO_URI);
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB Connected "))
+  .catch((err) => console.log("MongoDB Error:", err));
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-.then(() => console.log("MongoDB Connected "))
-.catch((err) => console.log("MongoDB connection error :", err));
+app.use("/api/tasks", taskRoutes);
 
-// Basic route to test server
 app.get("/", (req, res) => {
-    res.send("Backend Server Running ");
+  res.send("Backend Running");
 });
 
-// Start server
 const PORT = 5000;
+
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT} `);
+  console.log(`Server running on port ${PORT}`);
 });
